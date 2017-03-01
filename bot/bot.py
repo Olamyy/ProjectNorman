@@ -22,7 +22,12 @@ class WebHook(Resource):
 		else:
 			print('Failed validation. Make sure the \
 				validation tokens match')
-			# abort(403)
+
+
+	def post(self):
+		args = request.args
+		print args
+
 
 
 api.add_resource(HelloWorld, '/')
