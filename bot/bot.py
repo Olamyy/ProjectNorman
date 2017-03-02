@@ -29,8 +29,21 @@ class WebHook(Resource):
         args = request.args
         sender = args['entry'][0]['messaging'][0]['sender']['id']
         message = args['entry'][0]['messaging'][0]['message']['text']
-        print(sender, message)
+        self.reply(sender, message[::-1])
         return "ok"
+
+    def reply(self, user_id, msg):
+        data = {
+            "recipient": {"id": user_id},
+            "message": {"text": msg}
+        }
+        resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token="
+                             +
+                             "EAAS0PtgoBk4BAElZCZAVTSSvnIbp22YIcWHTZAvbaSvN5TZCud1unGoFDmOaCr6KZCIH72UUGgUO"
+                             "16XQlj7xXVdg9nBv7j6YqpeQ21m6bGASd7idhMHDZBagymIMggstRiheB3SQxjnPD0t9n7tMP872"
+                             "O6Bikny7Ld4DZBie9e3fgZDZD2", json=data)
+        print(resp.content)
+
 
 api.add_resource(HelloWorld, '/')
 api.add_resource(WebHook, '/webhook')
