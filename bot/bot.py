@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request, jsonify
 from flask import make_response
 from flask_restful import Resource, Api
+import requests
 import os
 
 app = Flask(__name__)
@@ -26,9 +27,18 @@ class WebHook(Resource):
 
     def post(self):
         args = request.args
-        print(jsonify(args))
-        print(request.json)
-        return args
+        sender = args['entry'][0]['messaging'][0]['sender']['id']
+        message = args['entry'][0]['messaging'][0]['message']['text']
+        self.reply(sender, message[::-1])
+        return "ok"
+
+    def reply(self, user_id, msg):
+        data = {
+            "recipient": {"id": user_id},
+            "message": {"text": msg}
+        }
+        resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
+        print(resp.content)
 
 
 api.add_resource(HelloWorld, '/')
