@@ -24,12 +24,9 @@ class WebHook(Resource):
         else:
             print('Failed validation. Make sure the validation token match')
 
+
     def post(self):
-        args = request.args
-        sender = args['entry'][0]['messaging'][0]['sender']['id']
-        message = args['entry'][0]['messaging'][0]['message']['text']
-        print(sender, message)
-        return "ok"
+        print(request.args)
 
 
 api.add_resource(HelloWorld, '/')
