@@ -22,8 +22,7 @@ class WebHook(Resource):
             print('validating webhook')
             return make_response(args.get('hub.challenge').strip("\n\""))
         else:
-            print('Failed validation. Make sure the validation token match')
-
+            return 'Failed validation. Make sure the validation token match'
 
     def post(self):
         print(request.args)
