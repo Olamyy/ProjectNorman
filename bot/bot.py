@@ -25,11 +25,14 @@ class WebHook(Resource):
         	print('Failed validation. Make sure the validation tokens match')
 
     def post(self):
-        message_entries1 = request.json
-        print('message_entries1\n', message_entries1)
-        message_entries = json.loads(request.data)
+        # message_entries1 = request.json
+        # print('message_entries1\n', message_entries1)
+        print(type(request.json))
+        print(type(request.data))
+        print(type(request.get_json()))
+        # message_entries = json.loads(request.data)
         # message_entries = json.loads(request.data.decode('utf8'))['entry']
-        print('message_entries\n', message_entries1)
+        # print('message_entries\n', message_entries1)
         for entry in message_entries:
             messagings = entry['messsaging']
             for message in messagings:
