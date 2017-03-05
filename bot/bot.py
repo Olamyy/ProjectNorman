@@ -80,7 +80,8 @@ class WebHook(Resource):
         access_token = 'EAAS0PtgoBk4BAAV6pDrocKGlPOAjdxynxBidP5noah1l27yRu2x0zZAc1clvjQN1YAY9dHgJKGd8fPqjwHBxQ0KuQxUahCkxUDmecH9OQvAk8FKuZBZA2jQhHPihh85WcALD8UZBMRxYXT1iAqaAGdpUcjKAlOBwL6VwisVC8QZDZD'
         uri = 'https://graph.facebook.com/v2.6/me/messages/access_token=' + access_token
         resp = r.post(uri, json=message)
-        print(resp.status)
+        print(resp.status_code, '\n')
+        print(resp.text)
 
 
 
