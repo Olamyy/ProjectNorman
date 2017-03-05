@@ -35,13 +35,14 @@ class WebHook(Resource):
     			reply(sender, text)
 
     def reply(user_id, msg):
+    	ACCESS_TOKEN = 'EAAS0PtgoBk4BAElZCZAVTSSvnIbp22YIcWHTZAvbaSvN5TZCud1unGoFDmOaCr6KZCIH72UUGgUO16XQlj7xXVdg9nBv7j6YqpeQ21m6bGASd7idhMHDZBagymIMggstRiheB3SQxjnPD0t9n7tMP872O6Bikny7Ld4DZBie9e3fgZDZD2'
     	data = {
     	"recipient": {"id": user_id},
     	"message": {"text": msg}
     	}
     	resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
     	print(resp.content)
-    	
+
 
 api.add_resource(HelloWorld, '/')
 api.add_resource(WebHook, '/webhook')
@@ -49,5 +50,5 @@ api.add_resource(WebHook, '/webhook')
 if __name__ == '__main__':
 
 	port = int(os.environ.get("PORT", 5000))
-	app.run(host='0.0.0.0', port=port, debug=True)
+	app.run(host='0.0.0.0', port=port, debug=False)
 
