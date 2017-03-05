@@ -25,8 +25,8 @@ class WebHook(Resource):
 
 
 	def post(self):
-		args = request.args
-		print args
+		data = request.get_json(force=True)
+		print data
 
 
 
