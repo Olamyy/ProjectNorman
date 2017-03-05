@@ -27,7 +27,7 @@ class WebHook(Resource):
     def post(self):
         message_entries1 = request.json
         print('message_entries1\n', message_entries1)
-        message_entries = json.loads(request.data.decode('utf8'))
+        message_entries = json.loads(request.data)
         # message_entries = json.loads(request.data.decode('utf8'))['entry']
         print('message_entries\n', message_entries1)
         for entry in message_entries:
