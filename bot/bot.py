@@ -11,17 +11,18 @@ api = Api(app)
 
 class HelloWorld(Resource):
     def get(self):
-    	if args.get('hub.mode') == 'subscribe' and args.get('hub.verify_token') == verify_token:
-    		print('validating webhook')
-    		return make_response(args.get('hub.challenge').strip("\n\""))
-    	else:
-    		print('Failed validation. Make sure the validation tokens match')
+    	return "{'hello': 'world'}"
 
 
 class WebHook(Resource):
     def get(self):
         args = request.args
         verify_token = 'python_rocks'
+        if args.get('hub.mode') == 'subscribe' and args.get('hub.verify_token') == verify_token:
+        	print('validating webhook')
+        	return make_response(args.get('hub.challenge').strip("\n\""))
+        else:
+        	print('Failed validation. Make sure the validation tokens match')
 
     def post(self):
     	message_entries = request.json
