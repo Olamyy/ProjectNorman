@@ -25,18 +25,21 @@ class WebHook(Resource):
         	print('Failed validation. Make sure the validation tokens match')
 
     def post(self):
-    	message_entries = request.json
-    	print(message_entries)
-    	for entry in message_entries:
-    		messagings = entry['messsaging']
-    		for message in messagings:
-    			sender = message['sender']['id']
-    			if message.get('message'):
-    				text = message['message']['text']
-    				print("{} says {}".format(sender, text))
-    			reply(sender, text)
+        message_entries1 = request.json
+        print('message_entries1\n', message_entries1)
+        message_entries = json.loads(request.data.decode('utf8'))
+        # message_entries = json.loads(request.data.decode('utf8'))['entry']
+        print('message_entries\n', message_entries1)
+        for entry in message_entries:
+            messagings = entry['messsaging']
+            for message in messagings:
+                sender = message['sender']['id']
+                if message.get('message'):
+                    text = message['message']['text']
+                    print("{} says {}".format(sender, text))
+                self.reply(sender, text)
 
-    def reply(user_id, msg):
+    def reply(self, user_id, msg):
     	ACCESS_TOKEN = 'EAAS0PtgoBk4BAElZCZAVTSSvnIbp22YIcWHTZAvbaSvN5TZCud1unGoFDmOaCr6KZCIH72UUGgUO16XQlj7xXVdg9nBv7j6YqpeQ21m6bGASd7idhMHDZBagymIMggstRiheB3SQxjnPD0t9n7tMP872O6Bikny7Ld4DZBie9e3fgZDZD2'
     	data = {
     	"recipient": {"id": user_id},
