@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
-from flask.ext.mongoalchemy import MongoAlchemy
 
-from Norman import commands, public, hospital
+from Norman import commands, public
+from Norman.api import bot
 from Norman.assets import assets
+from Norman.auth import views as auth_view
 from Norman.extensions import bcrypt, cache, csrf_protect, db, debug_toolbar, login_manager, migrate
+from Norman.hospital import models, views
+from Norman.personal import views as personalview
 from Norman.settings import ProdConfig
 
 
@@ -40,7 +43,10 @@ def register_extensions(app):
 def register_blueprints(app):
     """Register Flask blueprints."""
     app.register_blueprint(public.views.blueprint)
-    app.register_blueprint(hospital.views.blueprint)
+    app.register_blueprint(auth_view.blueprint)
+    app.register_blueprint(views.blueprint)
+    app.register_blueprint(bot.blueprint)
+    app.register_blueprint(personalview.blueprint)
     return None
 
 
@@ -62,7 +68,7 @@ def register_shellcontext(app):
         """Shell context objects."""
         return {
             'db': db,
-            'Hospital': hospital.models.Hospital}
+            'Hospital': models.Hospital}
 
     app.shell_context_processor(shell_context)
 

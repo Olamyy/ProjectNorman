@@ -15,7 +15,16 @@ class Config(object):
     DEBUG_TB_INTERCEPT_REDIRECTS = False
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    FACEBOOK_SECRET_KEY = "EAAS0PtgoBk4BAElZCZAVTSSvnIbp22YIcWHTZAvbaSvN5TZCud1unGoFDmOaCr6KZCIH72UUGgUO16XQlj7xXVdg9nBv7j6YqpeQ21m6bGASd7idhMHDZBagymIMggstRiheB3SQxjnPD0t9n7tMP872O6Bikny7Ld4DZBie9e3fgZDZD2ddd"
+    MONGOALCHEMY_DATABASE = "norman"
+    APP_NAME = "Norman"
+    BASE_PATH = "https://www.norman.ai"
+    COMPANY_EMAIL = "info@normanbot.com"
+    COMPANY_PHONE = "9036671876"
+    COMPANY_ADDRESS = "Ilab, Department of Electronics Electrical Engineering, Obafemi Awolowo University, " \
+                      "Ile-Ife, Osun State"
+    FACEBOOK_SECRET_KEY = "EAAS0PtgoBk4BAElZCZAVTSSvnIbp22YIcWHTZAvbaSvN5TZCud1unGoFDmOaCr6KZCIH72UUGgUO16XQlj7xX" \
+                          "Vdg9nBv7j6YqpeQ21m6bGASd7idhMHDZBagymIMggstRiheB3SQxjnPD0t9n7tMP872O6Bikny7Ld4DZBie9e3fg" \
+                          "ZDZD2ddd"
 
 
 class ProdConfig(Config):
@@ -25,7 +34,7 @@ class ProdConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/example'  # TODO: Change me
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
-    MONGO_URI = "mongodb://lekan:wxPython@ds121980.mlab.com:21980/norman"
+    MONGOALCHEMY_DATABASE = "mongodb://lekan:wxPython@ds121980.mlab.com:21980/norman"
 
 
 class DevConfig(Config):
@@ -38,8 +47,10 @@ class DevConfig(Config):
     DEBUG_TB_ENABLED = True
     ASSETS_DEBUG = True  # Don't bundle/minify static assets
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
-    MONGO_PORT = 27107
-    MONGO_HOST = "localhost"
+    MONGO_PORT = 27017
+    MONGO_HOST = "127.0.0.1"
+    MONGOALCHEMY_DATABASE = "norman"
+
 
 
 class TestConfig(Config):
@@ -50,3 +61,6 @@ class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
     BCRYPT_LOG_ROUNDS = 4  # For faster tests; needs at least 4 to avoid "ValueError: Invalid rounds"
     WTF_CSRF_ENABLED = False  # Allows form testing
+    MONGOALCHEMY_DATABASE = "norman"
+
+

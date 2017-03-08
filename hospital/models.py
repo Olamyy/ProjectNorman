@@ -9,16 +9,16 @@ from Norman.extensions import bcrypt
 
 class Hospital(UserMixin, db.Document):
     name = db.StringField(required=True, max_length=200, min_length=3)
-    username = db.StringField(required=True, max_length=50, min_length=10)
     password = PasswordField(required=True, max_length=50, min_length=10)
+    address = db.StringField(required=True, max_length=1000, min_length=3)
     email = db.StringField(required=True, max_length=50, min_length=10)
     created_at = db.DateTimeField(default=dt.datetime.now())
     active = db.BoolField(default=False)
     is_admin = db.BoolField(default=False)
 
-    def __init__(self, username, email, password=None, **kwargs):
+    def __init__(self, name, email, password=None, **kwargs):
         """Create instance."""
-        db.Model.__init__(self, username=username, email=email, **kwargs)
+        db.Document.__init__(self, name=name, email=email, **kwargs)
         if password:
             self.set_password(password)
         else:

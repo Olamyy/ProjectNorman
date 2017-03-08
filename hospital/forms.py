@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """User forms."""
 from flask_wtf import Form
-from wtforms import PasswordField, StringField
+from wtforms import PasswordField, StringField, TextAreaField, TextField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 from .models import Hospital
@@ -12,7 +12,7 @@ class RegisterForm(Form):
 
     name = StringField('Name',
                        validators=[DataRequired(), Length(min=3, max=200)])
-    username = StringField('Username',
+    address = TextAreaField('Address',
                            validators=[DataRequired(), Length(min=3, max=25)])
     email = StringField('Email',
                         validators=[DataRequired(), Email(), Length(min=6, max=40)])
@@ -31,9 +31,11 @@ class RegisterForm(Form):
         initial_validation = super(RegisterForm, self).validate()
         if not initial_validation:
             return False
-        hospital = Hospital.query.filter_by(username=self.username.data).first()
+        hospital = Hospital.query.filter_by(name=self.name.data).first()
+        print('I got here')
+        print(hospital)
         if hospital:
-            self.username.errors.append('Username already registered')
+            self.name.errors.append('Name already registered')
             return False
         hospital = Hospital.query.filter_by(email=self.email.data).first()
         if hospital:
