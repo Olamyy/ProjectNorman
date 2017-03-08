@@ -3,15 +3,15 @@
 from flask import Flask, render_template
 
 from Norman import commands, public
-from Norman.api import bot
-from flask_wtf import CsrfProtect
+from Norman.api import bot, web
+from flask_wtf import CSRFProtect
 from Norman.assets import assets
 from Norman.auth import views as auth_view
 from Norman.extensions import bcrypt, cache, csrf_protect, db, debug_toolbar, login_manager, migrate
 from Norman.hospital import models, views
 from Norman.personal import views as personalview
 from Norman.settings import ProdConfig
-
+import flask_restful as restful
 
 def create_app(config_object=ProdConfig):
     """An application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
@@ -47,8 +47,7 @@ def register_blueprints(app):
     app.register_blueprint(auth_view.blueprint)
     app.register_blueprint(views.blueprint)
     app.register_blueprint(bot.blueprint)
-    csrf = CsrfProtect(app)
-    csrf.exempt(bot.blueprint)
+    app.register_blueprint(web.blueprint)
     app.register_blueprint(personalview.blueprint)
     return None
 
