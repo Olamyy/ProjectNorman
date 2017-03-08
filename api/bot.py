@@ -1,14 +1,9 @@
 from flask import Blueprint, jsonify
 from flask import make_response
 from flask import request
-from flask.ext.wtf import CsrfProtect
 from flask_restful import Resource
 
 blueprint = Blueprint('api', __name__, url_prefix='/api')
-
-
-csrf = CsrfProtect()
-csrf.exempt(blueprint)
 
 
 @blueprint.route('/', methods=['GET', 'POST'])

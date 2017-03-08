@@ -4,6 +4,7 @@ from flask import Flask, render_template
 
 from Norman import commands, public
 from Norman.api import bot
+from flask_wtf import CsrfProtect
 from Norman.assets import assets
 from Norman.auth import views as auth_view
 from Norman.extensions import bcrypt, cache, csrf_protect, db, debug_toolbar, login_manager, migrate
@@ -46,6 +47,8 @@ def register_blueprints(app):
     app.register_blueprint(auth_view.blueprint)
     app.register_blueprint(views.blueprint)
     app.register_blueprint(bot.blueprint)
+    csrf = CsrfProtect(app)
+    csrf.exempt(bot.blueprint)
     app.register_blueprint(personalview.blueprint)
     return None
 
