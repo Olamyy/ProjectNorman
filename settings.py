@@ -31,25 +31,20 @@ class ProdConfig(Config):
 
     ENV = 'prod'
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/example'  # TODO: Change me
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
-    MONGOALCHEMY_DATABASE = "mongodb://lekan:wxPython@ds121980.mlab.com:21980/norman"
+    # MONGOALCHEMY_DATABASE = "mongodb://lekan:wxPython@ds121980.mlab.com:21980/norman"
 
 
 class DevConfig(Config):
     ENV = 'dev'
     DEBUG = True
-    DB_NAME = 'dev.db'
     # Put the db file in project root
-    DB_PATH = os.path.join(Config.PROJECT_ROOT, DB_NAME)
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}'.format(DB_PATH)
     DEBUG_TB_ENABLED = True
     ASSETS_DEBUG = True  # Don't bundle/minify static assets
     CACHE_TYPE = 'simple'  # Can be "memcached", "redis", etc.
-    MONGO_PORT = 27017
-    MONGO_HOST = "127.0.0.1"
-    MONGOALCHEMY_DATABASE = "norman"
-
+    # MONGO_PORT = 27017
+    # MONGO_HOST = "127.0.0.1"
+    # MONGOALCHEMY_DATABASE = "norman"
 
 
 class TestConfig(Config):
@@ -57,9 +52,9 @@ class TestConfig(Config):
 
     TESTING = True
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite://'
     BCRYPT_LOG_ROUNDS = 4  # For faster tests; needs at least 4 to avoid "ValueError: Invalid rounds"
     WTF_CSRF_ENABLED = False  # Allows form testing
     MONGOALCHEMY_DATABASE = "norman"
+
 
 
